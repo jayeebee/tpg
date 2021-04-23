@@ -19,12 +19,12 @@ function generateHTML(data) {
 
             <div class="container">
                 <div class="row">
-                    <div class="card-header col-4 shadow p-3 mb-5 rounded" > <h5 class="card-title">John Doe</h5> </br> <h6 class="card-text">Manager</h6>
+                    <div class="card-header col-4 shadow p-3 mb-5 rounded" > <h5 class="card-title">${data.employeeName}</h5> </br> <h6 class="card-text">${data.employeeRole}</h6>
                         <div class="card-body">
                             <ul class="list-group">
-                                <li class="list-group-item">E-Mail:</br> john.doe@gmail.com</li>
-                                <li class="list-group-item">ID: 64</li>
-                                <li class="list-group-item">Office: #4</li>
+                                <li class="list-group-item">E-Mail:</br> ${data.email}</li>
+                                <li class="list-group-item">ID: ${data.id}</li>
+                                <li class="list-group-item">Office: ${data.officeNumber}</li>
                             </ul>
                         </div>
                     </div>
