@@ -1,31 +1,48 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
+//const generateHTML = require('./dist/');
 
 const questions = [
-    'What is your role in the company? Please select the most relevant',
-    'What is your employee ID number?',
-    'What is your E-Mail address?',
-    'What is your office number?',
-    'What is your Github username?',
-    'What is the name of your shool?'
+    "Please enter the employee's name",
+    'Please choose a role for the employee',
+    'What is the employee ID number?',
+    'What is the E-Mail address?',
+    'What is the office number?',
+    'What is the Github username?',
+    'What is the name of the shool?',
+    'Would you like to add another team member?'
 ]
 
 const promptUser = () => {
     return inquirer.prompt([
     {
+        type: 'input',
+        name: 'employeeName',
+        message: questions[0],
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter a name!');
+                return false;
+            }
+        }
+    },
+    {
         type: 'list',
         name: 'employeeRole',
-        message: questions[0],
+        message: questions[1],
         choices: ['Employee', 'Intern', 'Manager', 'Engineer']
     },
     {
         type: 'input',
         name: 'id',
-        message: questions[1],
+        message: questions[2],
         validate: idInput => {
             if (idInput) {
                 return true;
             } else {
-                console.log('Please enter your employee ID!');
+                console.log('Please enter the employee ID!');
                 return false;
             }
         }
@@ -33,12 +50,12 @@ const promptUser = () => {
     {
         type: 'input',
         name: 'email',
-        message: questions[2],
+        message: questions[3],
         validate: emailInput => {
         if (emailInput) {
                 return true;
             } else {
-                console.log('Please enter your email!');
+                console.log("Please enter the employee's email!");
                 return false;
             }
         }
@@ -46,7 +63,7 @@ const promptUser = () => {
     {
         type: 'input',
         name: 'officeNumber',
-        message: questions[3],
+        message: questions[4],
         when: (answers) => {
             if (answers.employeeRole === "Manager") {
             return true
@@ -64,7 +81,7 @@ const promptUser = () => {
     {
         type: 'input',
         name: 'githubName',
-        message: questions[4],
+        message: questions[5],
         when: (answers) => {
             if (answers.employeeRole === "Engineer") {
             return true
@@ -74,7 +91,7 @@ const promptUser = () => {
             if (githubNameInput) {
                     return true;
                 } else {
-                    console.log('Please enter your Github username!');
+                    console.log("Please enter the employee's Github username!");
                     return false;
                 }
             }
@@ -82,7 +99,7 @@ const promptUser = () => {
     {
         type: 'input',
         name: 'internSchool',
-        message: questions[5],
+        message: questions[6],
         when: (answers) => {
             if (answers.employeeRole === "Intern") {
             return true
@@ -92,12 +109,19 @@ const promptUser = () => {
             if (schoolInput) {
                     return true;
                 } else {
-                    console.log("Please enter your school's name!");
+                    console.log("Please enter the intern's school's name!");
                     return false;
                 }
             }
     },
+    {
+        type: 'confirm',
+        name: 'confirmAddMember',
+        message: questions[7],
+        default: false,
+    }
     ])
+
 }
 
 promptUser()
